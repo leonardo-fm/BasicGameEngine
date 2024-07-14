@@ -4,10 +4,11 @@
 #include "../ECS/Components.h"
 
 Map *map;
+Manager manager;
 
 SDL_Renderer *Game::renderer = nullptr;
+SDL_Event Game::event;
 
-Manager manager;
 auto& player(manager.AddEntity());
 
 Game::Game() {}
@@ -37,10 +38,10 @@ void Game::Init(const char *title, int width, int height, bool fullscreen) {
 
     player.AddComponent<TransformComponent>();
     player.AddComponent<SpriteComponent>("assets/player.png");
+    player.AddComponent<keyboardController>();
 }
 
 void Game::HandleEvents() {
-    SDL_Event event;
     SDL_PollEvent(&event);
     switch (event.type) {
         case SDL_QUIT:
@@ -54,8 +55,6 @@ void Game::HandleEvents() {
 void Game::Update() {
     manager.Refresh();
     manager.Update();
-
-    player.GetComponent<TransformComponent>().position -= Vector2D(0, -5);
 }
 
 void Game::Render() {

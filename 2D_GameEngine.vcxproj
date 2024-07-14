@@ -405,6 +405,7 @@
     <Content Include="assets\grass.png" />
     <Content Include="assets\player.png" />
     <Content Include="assets\water.png" />
+    <Content Include="ECS\KeyboardController.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
