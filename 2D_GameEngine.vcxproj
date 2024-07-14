@@ -160,6 +160,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Collision.cpp" />
     <ClCompile Include="src\Game.cpp">
       <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -390,10 +391,7 @@
     <ClCompile Include="src\Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ECS\Components.h" />
-    <ClInclude Include="ECS\ECS.h" />
-    <ClInclude Include="ECS\TransformComponent.h" />
-    <ClInclude Include="ECS\SpriteComponent.h" />
+    <ClInclude Include="src\Collision.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\GameObject.h" />
     <ClInclude Include="src\Map.h" />
@@ -405,7 +403,6 @@
     <Content Include="assets\grass.png" />
     <Content Include="assets\player.png" />
     <Content Include="assets\water.png" />
-    <Content Include="ECS\KeyboardController.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

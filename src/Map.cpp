@@ -37,7 +37,11 @@ Map::Map() {
     srcRect.h = destRect.h = 32;
 }
 
-Map::~Map() {}
+Map::~Map() {
+    SDL_DestroyTexture(dirt);
+    SDL_DestroyTexture(grass);
+    SDL_DestroyTexture(water);
+}
 
 void Map::LoadMap(int arr[20][25]) {
     for (int row = 0; row < 20; row++) {

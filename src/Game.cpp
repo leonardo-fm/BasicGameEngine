@@ -1,7 +1,9 @@
 ﻿#include "Game.h"
 #include "TextureManager.h"
 #include "Map.h"
-#include "../ECS/Components.h"
+#include "ECS/Components.h"
+#include "Collision.h"
+#include "ECS/ColliderComponent.h"
 
 Map *map;
 Manager manager;
@@ -9,7 +11,8 @@ Manager manager;
 SDL_Renderer *Game::renderer = nullptr;
 SDL_Event Game::event;
 
-auto& player(manager.AddEntity());
+Entity& player(manager.AddEntity());
+Entity& wall(manager.AddEntity());
 
 Game::Game() {}
 Game::~Game() {}
@@ -36,9 +39,14 @@ void Game::Init(const char *title, int width, int height, bool fullscreen) {
 
     map = new Map();
 
-    player.AddComponent<TransformComponent>();
+    player.AddComponent<TransformComponent>(0, 0, 32, 32, 2);
     player.AddComponent<SpriteComponent>("assets/player.png");
-    player.AddComponent<keyboardController>();
+    player.AddComponent<KeyboardController>();
+    player.AddComponent<ColliderComponent>("player");
+
+    wall.AddComponent<TransformComponent>(300, 300, 300, 20, 1);
+    wall.AddComponent<SpriteComponent>("assets/dirt.png");
+    wall.AddComponent<ColliderComponent>("wall");
 }
 
 void Game::HandleEvents() {

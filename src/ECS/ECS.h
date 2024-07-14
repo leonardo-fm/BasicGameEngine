@@ -47,7 +47,7 @@ public:
     void Draw() {
         for (auto& component : components) component->Draw();
     }
-    bool isActive() { return active; }
+    bool IsActive() { return active; }
     void Destroy() { active = false; }
 
     template <typename T>
@@ -95,7 +95,7 @@ public:
     void Refresh() {
         entities.erase(std::remove_if(std::begin(entities), std::end(entities),
             [](const std::unique_ptr<Entity> &mEntity) {
-                return !mEntity->isActive();
+                return !mEntity->IsActive();
             }), std::end(entities));
     }
 

@@ -1,11 +1,16 @@
 ﻿#pragma once
 
-#include "../src/Vector2D.h"
+#include "../Vector2D.h"
 
 class TransformComponent : public Component {
 public:
     Vector2D position;
     Vector2D velocity;
+
+    int height = 32;
+    int width = 32;
+    int scale = 1;
+    
     float speed = 3;
     
     TransformComponent() {
@@ -13,6 +18,12 @@ public:
     }
     TransformComponent(float x, float y) {
         SetPosition(x, y);
+    }
+    TransformComponent(float x, float y, int h, int w, int scale) {
+        SetPosition(x, y);
+        height = h;
+        width = w;
+        this->scale = scale;
     }
 
     void Init() override {

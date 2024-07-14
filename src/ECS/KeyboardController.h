@@ -1,10 +1,10 @@
 ﻿#pragma once
 
-#include "../src/Game.h"
+#include "../Game.h"
 #include "ECS.h"
 #include "Components.h"
 
-class keyboardController : public Component {
+class KeyboardController : public Component {
 public:
     TransformComponent* transform;
 
