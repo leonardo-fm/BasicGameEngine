@@ -14,10 +14,6 @@ std::vector<ColliderComponent*> Game::colliders;
 Entity& player(manager.AddEntity());
 Entity& wall(manager.AddEntity());
 
-Entity& tile0(manager.AddEntity());
-Entity& tile1(manager.AddEntity());
-Entity& tile2(manager.AddEntity());
-
 Game::Game() {}
 Game::~Game() {}
 
@@ -42,12 +38,7 @@ void Game::Init(const char *title, int width, int height, bool fullscreen) {
     }
 
     map = new Map();
-
-    tile1.AddComponent<TileComponent>(250, 250, 32, 32, 0);
-    tile1.AddComponent<ColliderComponent>("dirt");
-    tile2.AddComponent<TileComponent>(150, 150, 32, 32, 1);
-    tile2.AddComponent<ColliderComponent>("grass");
-    tile0.AddComponent<TileComponent>(200, 200, 32, 32, 2);
+    map->LoadMap("assets/p16x16.map", 16, 16);
 
     player.AddComponent<TransformComponent>(0, 0, 32, 32, 2);
     player.AddComponent<SpriteComponent>("assets/player.png");
@@ -69,27 +60,25 @@ void Game::HandleEvents() {
             break;
     }
 }
-
 void Game::Update() {
     manager.Refresh();
     manager.Update();
-
-    for (ColliderComponent* cc : colliders) {
-        Collision::AABB(player.GetComponent<ColliderComponent>(), *cc);
-    }
 }
-
 void Game::Render() {
     SDL_RenderClear(renderer);
     //map->DrawMap();
     manager.Draw();
     SDL_RenderPresent(renderer);
 }
-
 void Game::Clean() {
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
     SDL_Quit();
     std::cout << "Cleaned" << std::endl;
+}
+
+void Game::AddTile(int id, int x, int y) {
+    Entity& tile(manager.AddEntity());
+    tile.AddComponent<TileComponent>(x, y, 32, 32, id);
 }
 
