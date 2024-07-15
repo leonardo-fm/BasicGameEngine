@@ -3,16 +3,20 @@
 #include "Map.h"
 #include "ECS/Components.h"
 #include "Collision.h"
-#include "ECS/ColliderComponent.h"
 
 Map *map;
 Manager manager;
 
 SDL_Renderer *Game::renderer = nullptr;
 SDL_Event Game::event;
+std::vector<ColliderComponent*> Game::colliders;
 
 Entity& player(manager.AddEntity());
 Entity& wall(manager.AddEntity());
+
+Entity& tile0(manager.AddEntity());
+Entity& tile1(manager.AddEntity());
+Entity& tile2(manager.AddEntity());
 
 Game::Game() {}
 Game::~Game() {}
@@ -39,12 +43,18 @@ void Game::Init(const char *title, int width, int height, bool fullscreen) {
 
     map = new Map();
 
+    tile1.AddComponent<TileComponent>(250, 250, 32, 32, 0);
+    tile1.AddComponent<ColliderComponent>("dirt");
+    tile2.AddComponent<TileComponent>(150, 150, 32, 32, 1);
+    tile2.AddComponent<ColliderComponent>("grass");
+    tile0.AddComponent<TileComponent>(200, 200, 32, 32, 2);
+
     player.AddComponent<TransformComponent>(0, 0, 32, 32, 2);
     player.AddComponent<SpriteComponent>("assets/player.png");
     player.AddComponent<KeyboardController>();
     player.AddComponent<ColliderComponent>("player");
 
-    wall.AddComponent<TransformComponent>(300, 300, 300, 20, 1);
+    wall.AddComponent<TransformComponent>(300, 300, 320, 32, 1);
     wall.AddComponent<SpriteComponent>("assets/dirt.png");
     wall.AddComponent<ColliderComponent>("wall");
 }
@@ -63,11 +73,15 @@ void Game::HandleEvents() {
 void Game::Update() {
     manager.Refresh();
     manager.Update();
+
+    for (ColliderComponent* cc : colliders) {
+        Collision::AABB(player.GetComponent<ColliderComponent>(), *cc);
+    }
 }
 
 void Game::Render() {
     SDL_RenderClear(renderer);
-    map->DrawMap();
+    //map->DrawMap();
     manager.Draw();
     SDL_RenderPresent(renderer);
 }

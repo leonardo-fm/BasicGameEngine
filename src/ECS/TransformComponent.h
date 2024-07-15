@@ -14,7 +14,7 @@ public:
     float speed = 3;
     
     TransformComponent() {
-        SetPosition(0, 0);
+        position.Zero();
     }
     TransformComponent(float x, float y) {
         SetPosition(x, y);
