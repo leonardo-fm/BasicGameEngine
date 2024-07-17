@@ -411,6 +411,7 @@
     <Content Include="assets\grass.png" />
     <Content Include="assets\p16x16.map" />
     <Content Include="assets\player.png" />
+    <Content Include="assets\player_idle.png" />
     <Content Include="assets\water.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
