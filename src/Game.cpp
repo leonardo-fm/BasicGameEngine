@@ -11,6 +11,8 @@ SDL_Renderer *Game::renderer = nullptr;
 SDL_Event Game::event;
 std::vector<ColliderComponent*> Game::colliders;
 
+bool Game::isRunning = false;
+
 Entity& player(manager.AddEntity());
 Entity& wall(manager.AddEntity());
 
@@ -22,6 +24,10 @@ enum groupLabels : std::size_t {
     groupEnemies,
     groupColliders
 };
+
+auto& tiles(manager.GetGroup(groupMap));
+auto& players(manager.GetGroup(groupPlayer));
+auto& enemies(manager.GetGroup(groupEnemies));
 
 Game::Game() {}
 Game::~Game() {}
@@ -49,7 +55,7 @@ void Game::Init(const char *title, int width, int height, bool fullscreen) {
     map = new Map();
     map->LoadMap("assets/map.map", 25, 20, 32);
 
-    player.AddComponent<TransformComponent>(0, 0, 32, 32, 2);
+    player.AddComponent<TransformComponent>(400, 320, 32, 32, 2);
     player.AddComponent<SpriteComponent>("assets/player_animations.png", true);
     player.AddComponent<KeyboardController>();
     player.AddComponent<ColliderComponent>("player");
@@ -69,11 +75,14 @@ void Game::HandleEvents() {
 void Game::Update() {
     manager.Refresh();
     manager.Update();
-}
 
-auto& tiles(manager.GetGroup(groupMap));
-auto& players(manager.GetGroup(groupPlayer));
-auto& enemies(manager.GetGroup(groupEnemies));
+    Vector2D playerVelocity = player.GetComponent<TransformComponent>().velocity;
+    int playerSpeed = player.GetComponent<TransformComponent>().speed;
+    for (Entity *tile : tiles) {
+        tile->GetComponent<TileComponent>().destRect.x += -(playerVelocity.x * playerSpeed);
+        tile->GetComponent<TileComponent>().destRect.y += -(playerVelocity.y * playerSpeed);
+    }
+}
 
 void Game::Render() {
     SDL_RenderClear(renderer);
