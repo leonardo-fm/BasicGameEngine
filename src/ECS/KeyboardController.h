@@ -6,10 +6,12 @@
 
 class KeyboardController : public Component {
 public:
-    TransformComponent* transform;
+    TransformComponent *transform;
+    SpriteComponent *sprite;
 
     void Init() override {
         transform = &entity->GetComponent<TransformComponent>();
+        sprite = &entity->GetComponent<SpriteComponent>();
     }
 
     void Update() override {
@@ -20,16 +22,19 @@ public:
                 break;
             case SDLK_a:
                 transform->velocity.x = -1;
+                sprite->spriteFlip = SDL_FLIP_HORIZONTAL;
                 break;
             case SDLK_s:
                 transform->velocity.y = 1;
                 break;
             case SDLK_d:
                 transform->velocity.x = 1;
+                sprite->spriteFlip = SDL_FLIP_NONE;
                 break;
             default:
                 break;
             }
+            sprite->Play("walk");
         }
         if (Game::event.type == SDL_KEYUP) {
             switch (Game::event.key.keysym.sym) {
@@ -48,6 +53,8 @@ public:
             default:
                 break;
             }
+            sprite->Play("idle");
+            sprite->spriteFlip = SDL_FLIP_NONE;
         }
     }
 };
