@@ -14,6 +14,8 @@ std::vector<ColliderComponent*> Game::colliders;
 Entity& player(manager.AddEntity());
 Entity& wall(manager.AddEntity());
 
+const char* mapFile = "assets/terrain_ss.png";
+
 enum groupLabels : std::size_t {
     groupMap,
     groupPlayer,
@@ -45,18 +47,13 @@ void Game::Init(const char *title, int width, int height, bool fullscreen) {
     }
 
     map = new Map();
-    map->LoadMap("assets/p16x16.map", 16, 16);
+    map->LoadMap("assets/map.map", 25, 20, 32);
 
     player.AddComponent<TransformComponent>(0, 0, 32, 32, 2);
     player.AddComponent<SpriteComponent>("assets/player_animations.png", true);
     player.AddComponent<KeyboardController>();
     player.AddComponent<ColliderComponent>("player");
     player.AddGroup(groupPlayer);
-
-    wall.AddComponent<TransformComponent>(300, 300, 320, 32, 1);
-    wall.AddComponent<SpriteComponent>("assets/dirt.png");
-    wall.AddComponent<ColliderComponent>("wall");
-    wall.AddGroup(groupMap);
 }
 
 void Game::HandleEvents() {
@@ -98,9 +95,9 @@ void Game::Clean() {
     std::cout << "Cleaned" << std::endl;
 }
 
-void Game::AddTile(int id, int x, int y) {
+void Game::AddTile(int srcX, int srcY, int xPos, int yPos) {
     Entity& tile(manager.AddEntity());
-    tile.AddComponent<TileComponent>(x, y, 32, 32, id);
+    tile.AddComponent<TileComponent>(srcX, srcY, xPos, yPos, mapFile);
     tile.AddGroup(groupMap);
 }
 

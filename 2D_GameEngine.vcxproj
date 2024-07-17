@@ -408,13 +408,9 @@
     <ClInclude Include="src\Vector2D.h" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="assets\dirt.png" />
-    <Content Include="assets\grass.png" />
-    <Content Include="assets\p16x16.map" />
-    <Content Include="assets\player.png" />
+    <Content Include="assets\map.map" />
     <Content Include="assets\player_animations.png" />
-    <Content Include="assets\player_idle.png" />
-    <Content Include="assets\water.png" />
+    <Content Include="assets\terrain_ss.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

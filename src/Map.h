@@ -7,5 +7,5 @@ public:
     Map();
     ~Map();
 
-    void LoadMap(std::string mapPath, int sizeX, int sizeY);
+    void LoadMap(std::string mapPath, int sizeX, int sizeY, int gridSize);
 };
