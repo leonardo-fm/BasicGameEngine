@@ -29,7 +29,10 @@ public:
     void Init() override {
         SetVelocity(0, 0);   
     }
-    void Update() override { }
+    void Update() override {
+        position.x += velocity.x * speed;
+        position.y += velocity.y * speed;
+    }
     
 private:
     void SetPosition(float x, float y) {

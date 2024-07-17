@@ -9,6 +9,8 @@ Manager manager;
 
 SDL_Renderer *Game::renderer = nullptr;
 SDL_Event Game::event;
+SDL_Rect Game::camera = {0, 0, 800, 640};
+
 std::vector<ColliderComponent*> Game::colliders;
 
 bool Game::isRunning = false;
@@ -76,12 +78,13 @@ void Game::Update() {
     manager.Refresh();
     manager.Update();
 
-    Vector2D playerVelocity = player.GetComponent<TransformComponent>().velocity;
-    int playerSpeed = player.GetComponent<TransformComponent>().speed;
-    for (Entity *tile : tiles) {
-        tile->GetComponent<TileComponent>().destRect.x += -(playerVelocity.x * playerSpeed);
-        tile->GetComponent<TileComponent>().destRect.y += -(playerVelocity.y * playerSpeed);
-    }
+    camera.x = player.GetComponent<TransformComponent>().position.x - (camera.w / 2);
+    camera.y = player.GetComponent<TransformComponent>().position.y - (camera.h / 2);
+
+    if (camera.x < 0) camera.x = 0;
+    if (camera.y < 0) camera.y = 0;
+    if (camera.x > camera.w) camera.x = camera.w;
+    if (camera.y > camera.h) camera.y = camera.h;
 }
 
 void Game::Render() {
