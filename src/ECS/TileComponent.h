@@ -2,8 +2,10 @@
 
 #include "ECS.h"
 #include "SDL.h"
-#include "Game.h"
-#include "TextureManager.h"
+#include "../Game.h"
+#include "../TextureManager.h"
+#include "../Vector2D.h"
+#include "../AssetManager.h"
 
 class TileComponent : public Component {
 public:
@@ -13,8 +15,8 @@ public:
     Vector2D position;
     
     TileComponent() = default;
-    TileComponent(int srcX, int srcY, int xPos, int yPos, int size, int scale, const char* path) {
-        texture = TextureManager::LoadTexture(path);
+    TileComponent(int srcX, int srcY, int xPos, int yPos, int size, int scale, std::string textureId) {
+        texture = Game::assetManager->GetTexture(textureId);
         
         position.x = xPos;
         position.y = yPos;

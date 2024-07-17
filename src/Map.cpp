@@ -7,8 +7,8 @@
 
 extern Manager manager;
 
-Map::Map(const char *filePath, int scale, int tileSize) :
-mapFilePath(filePath), mapScale(scale), tileSize(tileSize) {
+Map::Map(std::string texId, int scale, int tileSize) :
+textureId(texId), mapScale(scale), tileSize(tileSize) {
     scaledSize = tileSize * scale;
 }
 Map::~Map() { }
@@ -27,8 +27,7 @@ void Map::LoadMap(std::string mapPath, int sizeX, int sizeY) {
             
             mapFile.get(tile);
             srcX = atoi(&tile) * tileSize;
-
-            // TODO (tileSize * mapScale)
+            
             AddTile(srcX, srcY, x * scaledSize, y * scaledSize);
             mapFile.ignore();
         }    
@@ -41,7 +40,6 @@ void Map::LoadMap(std::string mapPath, int sizeX, int sizeY) {
             mapFile.get(tile);
             if (tile == '1') {
                 auto& tileCollider(manager.AddEntity());
-                // TODO (tileSize * mapScale)
                 tileCollider.AddComponent<ColliderComponent>("terrain", x * scaledSize, y * scaledSize, scaledSize);
                 tileCollider.AddGroup(Game::groupColliders);
             }
@@ -54,6 +52,6 @@ void Map::LoadMap(std::string mapPath, int sizeX, int sizeY) {
 
 void Map::AddTile(int srcX, int srcY, int xPos, int yPos) {
     Entity& tile(manager.AddEntity());
-    tile.AddComponent<TileComponent>(srcX, srcY, xPos, yPos, tileSize, mapScale, mapFilePath);
+    tile.AddComponent<TileComponent>(srcX, srcY, xPos, yPos, tileSize, mapScale, textureId);
     tile.AddGroup(Game::groupMap);
 }

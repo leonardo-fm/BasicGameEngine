@@ -2,9 +2,9 @@
 
 #include "Components.h"
 #include "SDL.h"
-#include "TextureManager.h"
 #include <map>
 #include "Animation.h"
+#include "../AssetManager.h"
 
 class SpriteComponent : public Component {
 public:
@@ -13,10 +13,10 @@ public:
     SDL_RendererFlip spriteFlip = SDL_FLIP_NONE;
     
     SpriteComponent() = default;
-    SpriteComponent(const char *path) {
-        SetTexture(path);
+    SpriteComponent(std::string textureId) {
+        SetTexture(textureId);
     }
-    SpriteComponent(const char *path, bool isAnimated) {
+    SpriteComponent(std::string textureId, bool isAnimated) {
         animated = isAnimated;
         Animation idle = Animation(0, 4, 250);
         Animation walk = Animation(1, 4, 250);
@@ -24,14 +24,12 @@ public:
         animations.emplace("walk", walk);
 
         Play("idle");
-        SetTexture(path);
+        SetTexture(textureId);
     }
-    ~SpriteComponent() override {
-        SDL_DestroyTexture(texture);
-    }
+    ~SpriteComponent() override { }
 
-    void SetTexture(const char *path) {
-        texture = TextureManager::LoadTexture(path);
+    void SetTexture(std::string textureId) {
+        texture = Game::assetManager->GetTexture(textureId);
     }
     void Init() override {
         transform = &entity->GetComponent<TransformComponent>();

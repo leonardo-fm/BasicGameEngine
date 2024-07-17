@@ -1,5 +1,7 @@
+D:\Projects\SDL\BasicGameEngine\src\AssetManager.cpp;D:\Projects\SDL\BasicGameEngine\2D_GameEngine\x64\Debug\AssetManager.obj
 D:\Projects\SDL\BasicGameEngine\src\Collision.cpp;D:\Projects\SDL\BasicGameEngine\2D_GameEngine\x64\Debug\Collision.obj
 D:\Projects\SDL\BasicGameEngine\src\ECS\ECS.cpp;D:\Projects\SDL\BasicGameEngine\2D_GameEngine\x64\Debug\ECS.obj
+D:\Projects\SDL\BasicGameEngine\src\ECS\Projectile.cpp;D:\Projects\SDL\BasicGameEngine\2D_GameEngine\x64\Debug\Projectile.obj
 D:\Projects\SDL\BasicGameEngine\src\Game.cpp;D:\Projects\SDL\BasicGameEngine\2D_GameEngine\x64\Debug\Game.obj
 D:\Projects\SDL\BasicGameEngine\src\GameObject.cpp;D:\Projects\SDL\BasicGameEngine\2D_GameEngine\x64\Debug\GameObject.obj
 D:\Projects\SDL\BasicGameEngine\src\main.cpp;D:\Projects\SDL\BasicGameEngine\2D_GameEngine\x64\Debug\main.obj

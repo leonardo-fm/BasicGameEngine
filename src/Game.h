@@ -2,11 +2,9 @@
 #define Game_h
 
 #include "SDL.h"
-#include "SDL_image.h"
 #include <iostream>
-#include <vector>
-#include "Vector2D.h"
 
+class AssetManager;
 class ColliderComponent;
 
 class Game {
@@ -26,11 +24,13 @@ public:
     static SDL_Event event;
     static bool isRunning;
     static SDL_Rect camera;
+    static AssetManager *assetManager;
 
     enum groupLabels : std::size_t {
         groupMap,
         groupPlayer,
-        groupColliders
+        groupColliders,
+        groupProjectiles
     };
 private:
     SDL_Window *window;

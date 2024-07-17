@@ -160,8 +160,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\AssetManager.cpp" />
     <ClCompile Include="src\Collision.cpp" />
     <ClCompile Include="src\ECS\ECS.cpp" />
+    <ClCompile Include="src\ECS\Projectile.cpp" />
     <ClCompile Include="src\Game.cpp">
       <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -392,12 +394,14 @@
     <ClCompile Include="src\Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\AssetManager.h" />
     <ClInclude Include="src\Collision.h" />
     <ClInclude Include="src\ECS\Animation.h" />
     <ClInclude Include="src\ECS\ColliderComponent.h" />
     <ClInclude Include="src\ECS\Components.h" />
     <ClInclude Include="src\ECS\ECS.h" />
     <ClInclude Include="src\ECS\KeyboardController.h" />
+    <ClInclude Include="src\ECS\ProjectileComponent.h" />
     <ClInclude Include="src\ECS\SpriteComponent.h" />
     <ClInclude Include="src\ECS\TileComponent.h" />
     <ClInclude Include="src\ECS\TransformComponent.h" />
@@ -411,6 +415,7 @@
     <Content Include="assets\collider.png" />
     <Content Include="assets\map.map" />
     <Content Include="assets\player_animations.png" />
+    <Content Include="assets\projectile.png" />
     <Content Include="assets\terrain_ss.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
