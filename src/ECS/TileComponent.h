@@ -3,6 +3,7 @@
 #include "ECS.h"
 #include "SDL.h"
 #include "Game.h"
+#include "TextureManager.h"
 
 class TileComponent : public Component {
 public:
@@ -12,7 +13,7 @@ public:
     Vector2D position;
     
     TileComponent() = default;
-    TileComponent(int srcX, int srcY, int xPos, int yPos, const char* path) {
+    TileComponent(int srcX, int srcY, int xPos, int yPos, int size, int scale, const char* path) {
         texture = TextureManager::LoadTexture(path);
         
         position.x = xPos;
@@ -20,11 +21,11 @@ public:
         
         srcRect.x = srcX;
         srcRect.y = srcY;
-        srcRect.w = srcRect.h = 32;
+        srcRect.w = srcRect.h = size;
 
         destRect.x = xPos;
         destRect.y = yPos;
-        destRect.w = destRect.h = 64;
+        destRect.w = destRect.h = size * scale;
     }
     ~TileComponent() {
         SDL_DestroyTexture(texture);

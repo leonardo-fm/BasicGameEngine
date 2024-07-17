@@ -1,11 +1,19 @@
 ﻿#include "Map.h"
 #include "Game.h"
 #include <fstream>
+#include "ECS/ECS.h"
+#include "ECS/TileComponent.h"
+#include "ECS/Components.h"
 
-Map::Map() { }
+extern Manager manager;
+
+Map::Map(const char *filePath, int scale, int tileSize) :
+mapFilePath(filePath), mapScale(scale), tileSize(tileSize) {
+    scaledSize = tileSize * scale;
+}
 Map::~Map() { }
 
-void Map::LoadMap(std::string mapPath, int sizeX, int sizeY, int gridSize) {
+void Map::LoadMap(std::string mapPath, int sizeX, int sizeY) {
     char tile;
     std::fstream mapFile;
     mapFile.open(mapPath);
@@ -15,15 +23,37 @@ void Map::LoadMap(std::string mapPath, int sizeX, int sizeY, int gridSize) {
     for (int y = 0; y < sizeY; y++) {
         for (int x = 0; x < sizeX; x++) {
             mapFile.get(tile);
-            srcY = atoi(&tile) * gridSize;
+            srcY = atoi(&tile) * tileSize;
             
             mapFile.get(tile);
-            srcX = atoi(&tile) * gridSize;
-            
-            Game::AddTile(srcX, srcY, x * 64, y * 64);
+            srcX = atoi(&tile) * tileSize;
+
+            // TODO (tileSize * mapScale)
+            AddTile(srcX, srcY, x * scaledSize, y * scaledSize);
+            mapFile.ignore();
+        }    
+    }
+
+    mapFile.ignore();
+    
+    for (int y = 0; y < sizeY; y++) {
+        for (int x = 0; x < sizeX; x++) {
+            mapFile.get(tile);
+            if (tile == '1') {
+                auto& tileCollider(manager.AddEntity());
+                // TODO (tileSize * mapScale)
+                tileCollider.AddComponent<ColliderComponent>("terrain", x * scaledSize, y * scaledSize, scaledSize);
+                tileCollider.AddGroup(Game::groupColliders);
+            }
             mapFile.ignore();
         }    
     }
     
     mapFile.close();
+}
+
+void Map::AddTile(int srcX, int srcY, int xPos, int yPos) {
+    Entity& tile(manager.AddEntity());
+    tile.AddComponent<TileComponent>(srcX, srcY, xPos, yPos, tileSize, mapScale, mapFilePath);
+    tile.AddGroup(Game::groupMap);
 }

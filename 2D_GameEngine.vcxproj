@@ -408,6 +408,7 @@
     <ClInclude Include="src\Vector2D.h" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\collider.png" />
     <Content Include="assets\map.map" />
     <Content Include="assets\player_animations.png" />
     <Content Include="assets\terrain_ss.png" />

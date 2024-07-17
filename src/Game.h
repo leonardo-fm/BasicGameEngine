@@ -5,6 +5,7 @@
 #include "SDL_image.h"
 #include <iostream>
 #include <vector>
+#include "Vector2D.h"
 
 class ColliderComponent;
 
@@ -21,13 +22,16 @@ public:
     void Render();
     void Clean();
 
-    static void AddTile(int srcX, int srcY, int xPos, int yPos);
-
     static SDL_Renderer *renderer;
     static SDL_Event event;
-    static std::vector<ColliderComponent*> colliders;
     static bool isRunning;
     static SDL_Rect camera;
+
+    enum groupLabels : std::size_t {
+        groupMap,
+        groupPlayer,
+        groupColliders
+    };
 private:
     SDL_Window *window;
 };
