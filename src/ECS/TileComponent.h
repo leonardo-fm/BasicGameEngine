@@ -18,8 +18,8 @@ public:
     TileComponent(int srcX, int srcY, int xPos, int yPos, int size, int scale, std::string textureId) {
         texture = Game::assetManager->GetTexture(textureId);
         
-        position.x = xPos;
-        position.y = yPos;
+        position.x = static_cast<float>(xPos);
+        position.y = static_cast<float>(yPos);
         
         srcRect.x = srcX;
         srcRect.y = srcY;
@@ -34,8 +34,8 @@ public:
     }
 
     void Update() override {
-        destRect.x = position.x - Game::camera.x;
-        destRect.y = position.y - Game::camera.y;
+        destRect.x = static_cast<int>(position.x - static_cast<float>(Game::camera.x));
+        destRect.y = static_cast<int>(position.y - static_cast<float>(Game::camera.y));
     }
     void Draw() override {
         TextureManager::Draw(texture, srcRect, destRect, SDL_FLIP_NONE);

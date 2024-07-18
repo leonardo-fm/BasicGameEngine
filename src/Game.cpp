@@ -1,9 +1,13 @@
 ﻿#include "Game.h"
+
+#include <sstream>
+
 #include "TextureManager.h"
 #include "Map.h"
 #include "ECS/Components.h"
 #include "Collision.h"
 #include "AssetManager.h"
+#include "SDL_ttf.h"
 
 Map *map;
 Manager manager;
@@ -17,6 +21,7 @@ AssetManager *Game::assetManager = new AssetManager(&manager);
 bool Game::isRunning = false;
 
 Entity& player(manager.AddEntity());
+Entity& label(manager.AddEntity());
 
 Game::Game() {}
 Game::~Game() {}
@@ -41,9 +46,15 @@ void Game::Init(const char *title, int width, int height, bool fullscreen) {
         isRunning = false;
     }
 
+    if (TTF_Init() == -1) {
+        std::cout << "Error Init SDL_TTF" << std::endl;
+    }
+    
     assetManager->AddTexture("terrain", "assets/terrain_ss.png");
     assetManager->AddTexture("player", "assets/player_animations.png");
     assetManager->AddTexture("projectile", "assets/projectile.png");
+    
+    assetManager->AddFont("cour", "assets/cour.ttf", 16);
     
     map = new Map("terrain", 2, 32);
     map->LoadMap("assets/map.map", 25, 20);
@@ -54,6 +65,9 @@ void Game::Init(const char *title, int width, int height, bool fullscreen) {
     player.AddComponent<ColliderComponent>("player");
     player.AddGroup(groupPlayer);
 
+    SDL_Color black = { 255, 255, 255, 255 };
+    label.AddComponent<UILabel>(10, 10, "Hello world", "cour", black);
+    
     assetManager->CreateProjectile(Vector2D(600, 600), Vector2D(2, 0), 200, 2, "projectile");
 }
 
@@ -75,6 +89,10 @@ void Game::HandleEvents() {
 void Game::Update() {
     SDL_Rect playerCollider = player.GetComponent<ColliderComponent>().collider;
     Vector2D playerPosition = player.GetComponent<TransformComponent>().position;
+
+    std::stringstream ss;
+    ss << "Player position: " << playerPosition;
+    label.GetComponent<UILabel>().SetLabelText(ss.str(), "cour");
     
     manager.Refresh();
     manager.Update();
@@ -92,8 +110,8 @@ void Game::Update() {
         }
     }
     
-    camera.x = player.GetComponent<TransformComponent>().position.x - (camera.w / 2);
-    camera.y = player.GetComponent<TransformComponent>().position.y - (camera.h / 2);
+    camera.x = static_cast<int>(player.GetComponent<TransformComponent>().position.x - camera.w / 2.0);
+    camera.y = static_cast<int>(player.GetComponent<TransformComponent>().position.y - camera.h / 2.0);
 
     if (camera.x < 0) camera.x = 0;
     if (camera.y < 0) camera.y = 0;
@@ -115,6 +133,8 @@ void Game::Render() {
     for (Entity* p : projectiles) {
         p->Draw();
     }
+
+    label.Draw();
     SDL_RenderPresent(renderer);
 }
 void Game::Clean() {

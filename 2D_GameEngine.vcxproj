@@ -78,6 +78,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <ExecutablePath>$(VC_ExecutablePath_x64);$(CommonExecutablePath)</ExecutablePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -109,13 +110,13 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>D:\Projects\SDL\SDL2\include;D:\Projects\SDL\SDL2_image\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Projects\SDL\SDL2\include;D:\Projects\SDL\SDL2_image\include;D:\Projects\SDL\SDL2_ttf\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\Projects\SDL\SDL2\lib\x64;D:\Projects\SDL\SDL2_image\lib\x64</AdditionalLibraryDirectories>
-      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);SDL2.lib;SDL2main.lib;SDL2_image.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\Projects\SDL\SDL2\lib\x64;D:\Projects\SDL\SDL2_image\lib\x64;D:\Projects\SDL\SDL2_ttf\lib\x64</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -148,15 +149,15 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>D:\Projects\SDL\SDL2\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Projects\SDL\SDL2\include;D:\Projects\SDL\SDL2_image\include;D:\Projects\SDL\SDL2_ttf\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\Projects\SDL\SDL2\lib\x64</AdditionalLibraryDirectories>
-      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);SDL2.lib;SDL2main.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\Projects\SDL\SDL2\lib\x64;D:\Projects\SDL\SDL2_image\lib\x64;D:\Projects\SDL\SDL2_ttf\lib\x64</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -236,7 +237,7 @@
       <DisableAnalyzeExternal>false</DisableAnalyzeExternal>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;_UNICODE;UNICODE;</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Projects\SDL\SDL2\include;D:\Projects\SDL\SDL2_image\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Projects\SDL\SDL2\include;D:\Projects\SDL\SDL2_image\include;D:\Projects\SDL\SDL2_ttf\include</AdditionalIncludeDirectories>
       <LinkCompiled>true</LinkCompiled>
     </ClCompile>
     <ClCompile Include="src\GameObject.cpp" />
@@ -312,7 +313,7 @@
       <DisableAnalyzeExternal>false</DisableAnalyzeExternal>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;_UNICODE;UNICODE;</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Projects\SDL\SDL2\include;D:\Projects\SDL\SDL2_image\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Projects\SDL\SDL2\include;D:\Projects\SDL\SDL2_image\include;D:\Projects\SDL\SDL2_ttf\include</AdditionalIncludeDirectories>
       <LinkCompiled>true</LinkCompiled>
     </ClCompile>
     <ClCompile Include="src\Map.cpp" />
@@ -388,7 +389,7 @@
       <DisableAnalyzeExternal>false</DisableAnalyzeExternal>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;_UNICODE;UNICODE;</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Projects\SDL\SDL2\include;D:\Projects\SDL\SDL2_image\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Projects\SDL\SDL2\include;D:\Projects\SDL\SDL2_image\include;D:\Projects\SDL\SDL2_ttf\include,</AdditionalIncludeDirectories>
       <LinkCompiled>true</LinkCompiled>
     </ClCompile>
     <ClCompile Include="src\Vector2D.cpp" />
@@ -405,6 +406,7 @@
     <ClInclude Include="src\ECS\SpriteComponent.h" />
     <ClInclude Include="src\ECS\TileComponent.h" />
     <ClInclude Include="src\ECS\TransformComponent.h" />
+    <ClInclude Include="src\ECS\UILabel.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\GameObject.h" />
     <ClInclude Include="src\Map.h" />
@@ -413,6 +415,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\collider.png" />
+    <Content Include="assets\cour.ttf" />
     <Content Include="assets\map.map" />
     <Content Include="assets\player_animations.png" />
     <Content Include="assets\projectile.png" />
